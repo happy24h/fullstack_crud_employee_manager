@@ -6,7 +6,6 @@ import mongoose from 'mongoose';
 import { Employee } from './schemas/employee.schemas';
 import aqp from 'api-query-params';
 
-
 @Injectable()
 export class EmployeesService {
   constructor(
@@ -32,11 +31,15 @@ export class EmployeesService {
     let offset = (+currentPage - 1) * +limit;
     let defaultLimit = +limit ? +limit : 10;
 
-    // Tạo biểu thức chính quy để tìm kiếm từng từ trong trường "title"
+    // Tạo biểu thức chính quy để tìm kiếm từng từ trong trường "name"
     const nameSearchRegex = new RegExp(filter.name, 'i');
 
-    // Thêm điều kiện tìm kiếm "title" bằng biểu thức chính quy
+    // Thêm điều kiện tìm kiếm "name" bằng biểu thức chính quy
     filter.name = nameSearchRegex;
+
+    // address ...
+    const addressSearchRegex = new RegExp(filter.address, 'i');
+    filter.address = addressSearchRegex;
 
     const totalItems = (await this.EmployeeModel.find(filter)).length;
     const totalPages = Math.ceil(totalItems / defaultLimit);
@@ -80,9 +83,13 @@ export class EmployeesService {
     if (!mongoose.Types.ObjectId.isValid(_id)) {
       return 'not found employee';
     }
-    await this.EmployeeModel.updateOne({ _id });
-    return this.EmployeeModel.findByIdAndDelete({
-      _id,
-    });
+
+    const deletedEmployee = await this.EmployeeModel.findByIdAndDelete(_id);
+
+    if (!deletedEmployee) {
+      return 'not found employee';
+    }
+
+    return deletedEmployee;
   }
 }
