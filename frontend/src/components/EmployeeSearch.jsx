@@ -1,19 +1,16 @@
 import { Form, Input, Row, Col, Button } from "antd";
-// import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
-// import { ALL_GENDER } from "../../../utils/constants/permissions";
 
 function EmployeeSearch(props) {
-  /////
   const [form] = Form.useForm();
   const onFinish = async (values) => {
     let query = "";
     if (values.name) {
       query += `&name=${values.name}`;
     }
-    if (values.address) {
-      query += `&address=${values.address}`;
+    if (values.email) {
+      query += `&email=${values.email}`;
     }
-    if (values.name || values.address) {
+    if (values.name || values.email) {
       // eslint-disable-next-line react/prop-types
       props.handleSearch(query);
     } else {
@@ -22,9 +19,11 @@ function EmployeeSearch(props) {
     }
   };
 
-  const resetForm = () => {
-    form.resetFields();
+  const resetForm = async () => {
+    await form.resetFields();
+    await form.submit();
   };
+
 
   return (
     <Form form={form} onFinish={onFinish}>
@@ -43,7 +42,7 @@ function EmployeeSearch(props) {
           </Form.Item>
         </Col>
         <Col span={8}>
-          <Form.Item name="address" label="Address">
+          <Form.Item name="email" label="Email">
             <Input placeholder="Tìm kiếm địa chỉ nhân viên..." />
           </Form.Item>
         </Col>

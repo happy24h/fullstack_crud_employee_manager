@@ -37,9 +37,9 @@ export class EmployeesService {
     // Thêm điều kiện tìm kiếm "name" bằng biểu thức chính quy
     filter.name = nameSearchRegex;
 
-    // address ...
-    const addressSearchRegex = new RegExp(filter.address, 'i');
-    filter.address = addressSearchRegex;
+    // email ...
+    const emailSearchRegex = new RegExp(filter.email, 'i');
+    filter.email = emailSearchRegex;
 
     const totalItems = (await this.EmployeeModel.find(filter)).length;
     const totalPages = Math.ceil(totalItems / defaultLimit);
