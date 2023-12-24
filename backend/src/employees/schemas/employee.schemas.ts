@@ -15,7 +15,7 @@ export class Employee {
   @Prop()
   gender: string;
 
-  @Prop()
+  @Prop({ required: true })
   email: string;
 
   @Prop()

@@ -1,4 +1,4 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsEmail, IsNotEmpty } from 'class-validator';
 // ID/Name/Date of Bird/Gender/Email/Address
 export class CreateEmployeeDto {
   @IsNotEmpty({ message: 'Tên không được để trống' })
@@ -10,6 +10,7 @@ export class CreateEmployeeDto {
   @IsNotEmpty({ message: 'Giới tính không đươc để trống' })
   gender: string;
 
+  @IsEmail({}, { message: 'Email không đúng định dạng' })
   @IsNotEmpty({ message: 'Email không được để trống' })
   email: string;
 
