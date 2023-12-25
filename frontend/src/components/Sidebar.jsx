@@ -1,28 +1,14 @@
 import React from "react";
-import {
-  UserOutlined,
-  PlusCircleOutlined,
-  EditOutlined,
-  BugOutlined,
-} from "@ant-design/icons";
+import { UserOutlined, BugOutlined } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
+import { Link } from "react-router-dom";
 const { Sider } = Layout;
 
 const items = [
   {
     key: "1",
     icon: React.createElement(UserOutlined),
-    label: `Manager Employee`,
-  },
-  {
-    key: "2",
-    icon: <PlusCircleOutlined />,
-    label: `Add Employee`,
-  },
-  {
-    key: "3",
-    icon: <EditOutlined />,
-    label: `Edit Employee`,
+    label: <Link to="/">Manager Employee</Link>,
   },
 ];
 function Sidebar() {
